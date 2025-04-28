@@ -3,10 +3,8 @@ package com.Mihin.BookStore
 import com.Mihin.BookStore.domain.AuthorSummary
 import com.Mihin.BookStore.domain.AuthorUpdateRequest
 import com.Mihin.BookStore.domain.BookSummary
-import com.Mihin.BookStore.domain.dto.AuthorDto
-import com.Mihin.BookStore.domain.dto.AuthorSummaryDto
-import com.Mihin.BookStore.domain.dto.AuthorUpdateRequestDto
-import com.Mihin.BookStore.domain.dto.BookSummaryDto
+import com.Mihin.BookStore.domain.BookUpdateRequest
+import com.Mihin.BookStore.domain.dto.*
 import com.Mihin.BookStore.domain.entities.AuthorEntity
 import com.Mihin.BookStore.domain.entities.BookEntity
 import com.Mihin.BookStore.exceptions.InvalidAuthorException
@@ -21,7 +19,6 @@ fun AuthorEntity.toAuthorDto() =AuthorDto(
 
 fun AuthorEntity.toAuthorSummaryDto(): AuthorSummaryDto {
     val authorId = this.id?: throw InvalidAuthorException()
-    checkNotNull(authorId)
     return AuthorSummaryDto(
         id = authorId,
         name = this.name,
@@ -76,4 +73,10 @@ fun BookEntity.toBookSummaryDto()  = BookSummaryDto(
     description = this.description,
     image = this.image,
     author = author.toAuthorSummaryDto()
+)
+
+fun BookUpdateRequestDto.toBookUpdateRequest() = BookUpdateRequest(
+    title = this.title,
+    description = this.description,
+    image = this.image
 )
